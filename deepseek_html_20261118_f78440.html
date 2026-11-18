@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Aula Interativa de Matemática — 1º Ano EM</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.css">
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$','$'],['\\(','\\)']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+<style>
+:root {
+  --primary: #6366f1;
+  --primary-2: #8b5cf6;
+  --accent: #f59e0b;
+  --ok: #10b981;
+  --danger: #ef4444;
+  --ink: #0f172a;
+  --ink-2: #475569;
+  --muted: #94a3b8;
+  --border: #e2e8f0;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --radius: 22px;
+  --radius-sm: 14px;
+  --shadow-sm: 0 2px 8px rgba(15,23,42,0.05);
+  --shadow: 0 8px 32px rgba(15,23,42,0.07);
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin:0; padding:0; background: var(--bg); font-family:'Inter',system-ui,sans-serif; color: var(--ink); }
+.reveal { font-family:'Inter',system-ui,sans-serif; font-size: 28px; color: var(--ink); }
+.reveal .slides { text-align: left; }
+.reveal section { padding: 0; }
+.reveal h1,.reveal h2,.reveal h3 { text-transform: none; font-weight: 800; letter-spacing: -0.02em; }
+.reveal h1 { color: var(--ink); font-size: 2em; }
+.reveal h2 {
+  color: var(--ink); font-size: 1.35em; padding: 0 0 12px 0; margin: 0 0 18px 0;
+  border-bottom: 4px solid transparent;
+  border-image: linear-gradient(90deg, var(--primary), var(--primary-2)) 1;
+}
+.reveal h3 { color: var(--primary); font-size: 0.9em; font-weight: 700; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+.card { background: var(--card); border-radius: var(--radius); padding: 20px 22px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.formula-box {
+  background: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 100%);
+  padding: 16px 20px; border-radius: var(--radius-sm); margin: 12px 0;
+  border-left: 5px solid var(--primary); font-size: 0.9em; color: var(--ink); box-shadow: var(--shadow-sm);
+}
+.info-box {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  padding: 14px 18px; border-radius: var(--radius-sm); font-size: 0.72em;
+  margin: 12px 0; border-left: 4px solid #0ea5e9; line-height: 1.6; color: var(--ink-2);
+}
+.hint { font-size: 0.65em; color: var(--muted); margin-top: 10px; font-style: italic; line-height: 1.5; }
+
+.control-card {
+  background: var(--card); border-radius: var(--radius-sm); padding: 14px 18px;
+  margin: 10px 0; box-shadow: var(--shadow-sm); border: 1px solid var(--border);
+}
+.control-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 12px; }
+.control-name { font-weight: 600; color: var(--ink-2); font-size: 0.8em; }
+.control-value {
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  color: white; padding: 6px 16px; border-radius: 999px; font-weight: 800;
+  font-size: 0.9em; min-width: 70px; text-align: center;
+  box-shadow: 0 4px 12px rgba(99,102,241,0.35); font-variant-numeric: tabular-nums;
+}
+input[type=range] {
+  -webkit-appearance: none; appearance: none; width: 100%; height: 44px;
+  background: transparent; cursor: pointer; touch-action: pan-y; margin: 0;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  height: 10px; border-radius: 5px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--primary-2) var(--pct,50%), #e2e8f0 var(--pct,50%), #e2e8f0 100%);
+}
+input[type=range]::-moz-range-track {
+  height: 10px; border-radius: 5px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--primary-2) var(--pct,50%), #e2e8f0 var(--pct,50%), #e2e8f0 100%);
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 28px; height: 28px;
+  border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  border: 4px solid white; box-shadow: 0 3px 12px rgba(99,102,241,0.45);
+  margin-top: -9px; cursor: grab; transition: transform 0.15s;
+}
+input[type=range]::-webkit-slider-thumb:active { transform: scale(1.15); cursor: grabbing; }
+input[type=range]::-moz-range-thumb {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  border: 4px solid white; box-shadow: 0 3px 12px rgba(99,102,241,0.45); cursor: grab;
+}
+
+.chart-wrap {
+  position: relative; height: 320px; width: 100%; margin: 12px 0;
+  background: white; border-radius: var(--radius-sm); padding: 14px;
+  box-shadow: var(--shadow-sm); border: 1px solid var(--border);
+}
+
+.exercises { font-size: 0.85em; max-height: 82vh; overflow-y: auto; padding-right: 10px; }
+.exercises::-webkit-scrollbar { width: 6px; }
+.exercises::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+
+details {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 16px 20px; margin: 10px 0;
+  box-shadow: var(--shadow-sm); transition: all 0.2s;
+}
+details:hover { box-shadow: var(--shadow); border-color: var(--primary); }
+details[open] { box-shadow: var(--shadow); border-color: var(--primary); }
+details summary {
+  cursor: pointer; font-weight: 700; color: var(--ink); padding: 4px 0;
+  list-style: none; position: relative; padding-right: 30px; font-size: 1em;
+}
+details summary::-webkit-details-marker { display: none; }
+details summary::after {
+  content: '▾'; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+  color: var(--primary); font-size: 1.2em; transition: transform 0.2s;
+}
+details[open] summary::after { transform: translateY(-50%) rotate(180deg); }
+details[open] summary { margin-bottom: 12px; border-bottom: 2px dashed var(--border); padding-bottom: 12px; }
+
+.solution {
+  color: #065f46; background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+  padding: 14px 18px; border-radius: var(--radius-sm); margin-top: 10px;
+  border-left: 4px solid var(--ok); line-height: 1.6;
+}
+
+.exercise-extras { margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--border); }
+.reveal-btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  color: white; border: none; border-radius: 999px; cursor: pointer;
+  font-size: 0.9em; font-weight: 700; margin-bottom: 12px;
+  box-shadow: 0 4px 14px rgba(99,102,241,0.35);
+  transition: transform 0.15s, box-shadow 0.15s; font-family: inherit;
+}
+.reveal-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99,102,241,0.45); }
+.official-solution { margin: 10px 0; }
+
+.my-work {
+  margin-top: 14px; padding: 16px;
+  background: linear-gradient(135deg, #fefce8 0%, #fef3c7 100%);
+  border: 2px dashed #fbbf24; border-radius: var(--radius-sm);
+}
+.my-work label { display: block; font-weight: 700; color: #92400e; margin-bottom: 10px; font-size: 0.9em; }
+.save-status { font-size: 0.75em; color: var(--ok); font-weight: 700; margin-left: 8px; opacity: 0; transition: opacity 0.3s; }
+.save-status.show { opacity: 1; }
+.latex-input {
+  width: 100%; min-height: 100px; padding: 12px 14px;
+  border: 2px solid #fde68a; border-radius: 10px;
+  font-family: 'Courier New', monospace; font-size: 15px;
+  resize: vertical; box-sizing: border-box; line-height: 1.6;
+  background: white; transition: border-color 0.15s;
+}
+.latex-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(99,102,241,0.12); }
+.latex-preview {
+  margin-top: 12px; padding: 14px 18px; background: white;
+  border: 2px dashed var(--border); border-radius: 10px;
+  min-height: 50px; font-size: 16px; white-space: pre-wrap;
+  line-height: 1.6; word-wrap: break-word; color: var(--ink);
+}
+.latex-preview .placeholder { color: var(--muted); font-style: italic; font-size: 14px; }
+
+svg { display: block; margin: 12px auto; width: 100%; max-height: 320px; }
+
+#toolbar {
+  position: fixed; top: 14px; right: 14px; z-index: 1000;
+  display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end;
+  max-width: calc(100vw - 28px);
+}
+#toolbar button {
+  padding: 12px 18px; border: none; border-radius: 12px;
+  font-size: 14px; font-weight: 700; cursor: pointer; color: white;
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  box-shadow: 0 4px 14px rgba(99,102,241,0.35);
+  transition: transform 0.15s, box-shadow 0.15s; font-family: inherit; white-space: nowrap;
+}
+#toolbar button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99,102,241,0.5); }
+#toolbar button.pdf { background: linear-gradient(135deg, #ef4444, #dc2626); box-shadow: 0 4px 14px rgba(239,68,68,0.35); }
+#toolbar button.pdf-blank { background: linear-gradient(135deg, #10b981, #059669); box-shadow: 0 4px 14px rgba(16,185,129,0.35); }
+#toolbar button.danger { background: linear-gradient(135deg, #64748b, #475569); box-shadow: 0 4px 14px rgba(100,116,139,0.35); }
+
+#toast {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%) translateY(140%);
+  background: linear-gradient(135deg, var(--ink), #1e293b);
+  color: white; padding: 18px 28px; border-radius: 16px; z-index: 1001;
+  font-size: 16px; max-width: min(600px, calc(100vw - 40px)); text-align: center;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); line-height: 1.5;
+}
+#toast.show { transform: translateX(-50%) translateY(0); }
+
+.hero { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 400px; }
+.hero h1 {
+  font-size: 2.4em;
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  margin: 0 0 20px 0; line-height: 1.15;
+}
+.hero-sub { font-size: 1.05em; color: var(--ink-2); margin: 12px 0 32px 0; line-height: 1.6; }
+.divider { text-align: center; display: flex; flex-direction: column; justify-content: center; min-height: 400px; }
+.divider h1 {
+  font-size: 3em;
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  margin: 0 0 16px 0;
+}
+.badge {
+  display: inline-block; background: linear-gradient(135deg, var(--accent), #d97706);
+  color: white; padding: 10px 24px; border-radius: 999px; font-size: 0.6em;
+  font-weight: 800; margin-top: 20px; box-shadow: 0 6px 20px rgba(245,158,11,0.4);
+}
+
+.poly-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px; margin-top: 12px;
+}
+.poly-card {
+  background: var(--card); border-radius: var(--radius-sm); padding: 16px;
+  border: 2px solid var(--border); box-shadow: var(--shadow-sm); text-align: center;
+}
+.poly-card h4 {
+  font-size: 0.85em; font-weight: 800; color: var(--primary);
+  margin: 0 0 8px 0; letter-spacing: -0.01em;
+}
+.poly-card svg { max-height: 150px; margin: 4px auto; }
+.poly-formulas {
+  background: #f8fafc; border-radius: 10px; padding: 10px 14px;
+  margin-top: 8px; text-align: left; font-size: 0.7em; line-height: 1.8;
+}
+.poly-formulas strong { color: var(--primary); }
+
+.reveal.mobile .slides section {
+  padding: 30px 20px !important; border-bottom: 2px solid var(--border);
+  min-height: auto !important;
+}
+.reveal.mobile .two-col { grid-template-columns: 1fr; gap: 16px; }
+.reveal.mobile .exercises { max-height: none; overflow-y: visible; padding-right: 0; }
+.reveal.mobile .chart-wrap { height: 280px; padding: 10px; }
+.reveal.mobile .formula-box { font-size: 0.95em; padding: 14px 16px; }
+.reveal.mobile .hero { min-height: 60vh; }
+.reveal.mobile h1 { font-size: 2.2em; }
+.reveal.mobile h2 { font-size: 1.5em; }
+.reveal.mobile .poly-grid { grid-template-columns: 1fr; }
+
+@media (max-width: 900px) {
+  .two-col { grid-template-columns: 1fr; gap: 16px; }
+  .exercises { max-height: none; overflow-y: visible; }
+  #toolbar { top: 8px; right: 8px; }
+  #toolbar button { padding: 10px 12px; font-size: 12px; }
+  .chart-wrap { height: 280px; }
+}
+
+@media print {
+  #toolbar, #toast { display: none !important; }
+  .reveal-btn, .latex-input, .save-status { display: none !important; }
+  details { page-break-inside: avoid; }
+  body.blank-version .official-solution, body.blank-version .latex-preview { display: none !important; }
+  body.blank-version .my-work { min-height: 200px; border: 2px dashed #94a3b8; background: #fafafa; position: relative; }
+  body.blank-version .my-work::after {
+    content: "(espaço para sua resolução à mão)"; position: absolute;
+    top: 12px; left: 16px; color: #94a3b8; font-style: italic; font-size: 13px;
+  }
+  body.blank-version .my-work label { display: none; }
+  body.with-notes .latex-preview { display: block !important; background: #fefce8; border: 1px solid var(--border); }
+}
+</style>
+</head>
+
+<body>
+<div id="toolbar">
+  <button onclick="revealAll()">👁️ Todas</button>
+  <button onclick="hideAll()">🙈 Ocultar</button>
+  <button onclick="clearAllNotes()" class="danger">🗑️ Limpar</button>
+  <button onclick="downloadPDF('notes')" class="pdf">📄 PDF+notas</button>
+  <button onclick="downloadPDF('blank')" class="pdf-blank">📄 PDF em branco</button>
+</div>
+<div id="toast"></div>
+
+<div class="reveal"><div class="slides">
+
+<!-- ============ CAPA ============ -->
+<section>
+  <div class="hero">
+    <h1>Aula Interativa de Matemática</h1>
+    <p class="hero-sub">
+      <strong>1º Ano do Ensino Médio</strong><br>
+      <strong>Bloco 1:</strong> Exponenciais, Logaritmos e Progressões<br>
+      <strong>Bloco 2:</strong> Geometria, Trigonometria e Áreas
+    </p>
+    <div class="info-box" style="text-align: left; display: inline-block; max-width: 620px;">
+      🎛️ Arraste os sliders para animar os gráficos<br>
+      ✏️ Escreva sua resolução em LaTeX em cada exercício<br>
+      💾 Suas anotações são salvas automaticamente<br>
+      📚 40 exercícios + slide de polígonos regulares
+    </div>
+  </div>
+</section>
+
+<!-- ============ ÍNDICE ============ -->
+<section>
+  <h2>Roteiro da Aula</h2>
+  <div class="two-col">
+    <div class="card">
+      <h3>Bloco 1 — 8 exercícios cada</h3>
+      <ol style="font-size: 0.85em; line-height: 1.8; padding-left: 24px;">
+        <li>Modelo exponencial</li>
+        <li>Logaritmos</li>
+        <li>Funções e equações logarítmicas</li>
+        <li>Progressão aritmética</li>
+        <li>Progressão geométrica</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Bloco 2 — 10 exercícios cada</h3>
+      <ol start="6" style="font-size: 0.85em; line-height: 1.8; padding-left: 24px;">
+        <li>Semelhança de triângulos</li>
+        <li>Teorema de Pitágoras</li>
+        <li>Trigonometria em polígonos</li>
+        <li>Polígonos regulares (L, a, A em R)</li>
+        <li>Área de polígonos e círculo</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DIVISOR ============ -->
+<section>
+  <div class="divider">
+    <h1>Bloco 1</h1>
+    <p style="font-size: 1.15em; color: var(--ink-2);">Exponenciais · Logaritmos · Progressões</p>
+    <div><span class="badge">5 tópicos · 40 exercícios</span></div>
+  </div>
+</section>
+
+<!-- ============ 1. EXPONENCIAL (8) ============ -->
+<section>
+  <h2>1. Modelo Exponencial</h2>
+  <div class="two-col">
+    <div>
+      <div class="formula-box">$f(x) = a \cdot b^x$ &nbsp; com $b>0$, $b\neq 1$</div>
+      <div class="control-card">
+        <div class="control-header">
+          <span class="control-name">Coeficiente a (valor inicial)</span>
+          <span class="control-value" id="exp-a-val">1.0</span>
+        </div>
+        <input type="range" id="exp-a" min="0.5" max="3" step="0.1" value="1">
+      </div>
+      <div class="control-card">
+        <div class="control-header">
+          <span class="control-name">Base b (fator de crescimento)</span>
+          <span class="control-value" id="exp-b-val">2.0</span>
+        </div>
+        <input type="range" id="exp-b" min="0.5" max="2.5" step="0.1" value="2">
+      </div>
+      <div class="chart-wrap"><canvas id="exp-chart"></canvas></div>
+      <p class="hint">💡 $b>1$ → cresce &nbsp;|&nbsp; $0<b<1$ → decai &nbsp;|&nbsp; ponto fixo em $(0,a)$.</p>
+    </div>
+    <div class="exercises">
+      <details><summary>Exercício 1 — Crescimento</summary>
+        <p>População de bactérias dobra a cada hora. Se inicialmente há 500, quantas após 4 h?</p>
+        <div class="solution">$f(t)=500\cdot 2^t$; &nbsp;$f(4)=500\cdot 16 = \mathbf{8\,000}$ bactérias.</div>
+      </details>
+      <details><summary>Exercício 2 — Juros compostos</summary>
+        <p>R$ 2 000 a 8% ao ano por 3 anos. Qual o montante?</p>
+        <div class="solution">$M=2000\cdot(1{,}08)^3 \approx \mathbf{R\$\ 2\,519{,}42}$.</div>
+      </details>
+      <details><summary>Exercício 3 — Desvalorização</summary>
+        <p>Carro de R$ 60 000 desvaloriza 12% ao ano. Valor após 4 anos?</p>
+        <div class="solution">$V=60000\cdot(0{,}88)^4 \approx \mathbf{R\$\ 35\,982{,}00}$.</div>
+      </details>
+      <details><summary>Exercício 4 — Equação</summary>
+        <p>Resolva $2^x = 32$.</p>
+        <div class="solution">$32=2^5 \Rightarrow \mathbf{x=5}$.</div>
+      </details>
+      <details><summary>Exercício 5 — Dobra a cada 3 dias</summary>
+        <p>Cultura de 100 g dobra a cada 3 dias. Massa após 12 dias?</p>
+        <div class="solution">$m=100\cdot 2^{12/3}=100\cdot 2^4=\mathbf{1\,600\ g}$.</div>
+      </details>
+      <details><summary>Exercício 6 — Decaimento radioativo</summary>
+        <p>Substância com meia-vida de 8 dias. Início: 200 g. Massa após 24 dias?</p>
+        <div class="solution">$m=200\cdot\left(\tfrac{1}{2}\right)^{24/8} = 200\cdot\left(\tfrac{1}{2}\right)^3 = \mathbf{25\ g}$.</div>
+      </details>
+      <details><summary>Exercício 7 — Investimento</summary>
+        <p>R$ 5 000 a 6% ao ano por 5 anos (juros compostos). Montante?</p>
+        <div class="solution">$M=5000\cdot(1{,}06)^5 = 5000\cdot 1{,}3382 \approx \mathbf{R\$\ 6\,691{,}13}$.</div>
+      </details>
+      <details><summary>Exercício 8 — Equação exponencial</summary>
+        <p>Resolva $3^x = 81$.</p>
+        <div class="solution">$81 = 3^4 \Rightarrow \mathbf{x=4}$.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. LOGARITMOS (8) ============ -->
+<section>
+  <h2>2. Logaritmos</h2>
+  <div class="two-col">
+    <div>
+      <div class="formula-box">$\log_b a = c \iff b^c = a$</div>
+      <div class="info-box" style="font-size: 0.7em;">
+        <strong>Propriedades:</strong><br>
+        $\log_b(xy) = \log_b x + \log_b y$<br>
+        $\log_b(x/y) = \log_b x - \log_b y$<br>
+        $\log_b(x^k) = k\log_b x$
+      </div>
+      <div class="control-card">
+        <div class="control-header">
+          <span class="control-name">Base b do logaritmo</span>
+          <span class="control-value" id="log-b-val">2.0</span>
+        </div>
+        <input type="range" id="log-b" min="1.2" max="5" step="0.1" value="2">
+      </div>
+      <div class="chart-wrap"><canvas id="log-chart"></canvas></div>
+      <p class="hint">💡 O log é a inversa da exponencial.</p>
+    </div>
+    <div class="exercises">
+      <details><summary>Exercício 1 — Soma</summary>
+        <p>$\log_2 8 + \log_2 4$</p>
+        <div class="solution">$3+2=\mathbf{5}$ (ou $\log_2 32=5$).</div>
+      </details>
+      <details><summary>Exercício 2 — Diferença</summary>
+        <p>$\log_3 27 - \log_3 9$</p>
+        <div class="solution">$3-2=\mathbf{1}$.</div>
+      </details>
+      <details><summary>Exercício 3 — Definição</summary>
+        <p>$\log_5 125$</p>
+        <div class="solution">$125=5^3 \Rightarrow \mathbf{3}$.</div>
+      </details>
+      <details><summary>Exercício 4 — Equação</summary>
+        <p>$\log_2(x+1)+\log_2(x-1)=3$</p>
+        <div class="solution">$x^2-1=8 \Rightarrow x^2=9$. Domínio $x>1$, logo $\mathbf{x=3}$.</div>
+      </details>
+      <details><summary>Exercício 5 — Base 10</summary>
+        <p>$\log 1000 + \log 0{,}01$</p>
+        <div class="solution">$3+(-2)=\mathbf{1}$.</div>
+      </details>
+      <details><summary>Exercício 6 — Definição</summary>
+        <p>$\log_2 32$</p>
+        <div class="solution">$32=2^5 \Rightarrow \mathbf{5}$.</div>
+      </details>
+      <details><summary>Exercício 7 — Base 4</summary>
+        <p>$\log_4 64$</p>
+        <div class="solution">$64=4^3 \Rightarrow \mathbf{3}$.</div>
+      </details>
+      <details><summary>Exercício 8 — Produto</summary>
+        <p>Simplifique $\log 5 + \log 20$.</p>
+        <div class="solution">$\log(5\cdot 20)=\log 100 = \mathbf{2}$.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. EQUAÇÕES LOG (8) — REVISADO ============ -->
+<section>
+  <h2>3. Funções e Equações Logarítmicas</h2>
+  <div class="two-col">
+    <div>
+      <div class="formula-box">$f(x)=\log_b x$ (domínio $x>0$) &nbsp;|&nbsp; $\log_b x = c \Rightarrow x = b^c$</div>
+      <div class="control-card">
+        <div class="control-header">
+          <span class="control-name">Base b</span>
+          <span class="control-value" id="leq-b-val">2.0</span>
+        </div>
+        <input type="range" id="leq-b" min="1.3" max="5" step="0.1" value="2">
+      </div>
+      <div class="control-card">
+        <div class="control-header">
+          <span class="control-name">Constante c (altura)</span>
+          <span class="control-value" id="leq-c-val">2.0</span>
+        </div>
+        <input type="range" id="leq-c" min="-2" max="4" step="0.1" value="2">
+      </div>
+      <div class="chart-wrap"><canvas id="leq-chart"></canvas></div>
+      <div class="info-box" id="leq-info"></div>
+    </div>
+    <div class="exercises">
+      <details><summary>Exercício 1</summary>
+        <p>$\log_2(x-1)=3$</p>
+        <div class="solution">$x-1=8 \Rightarrow \mathbf{x=9}$.</div>
+      </details>
+      <details><summary>Exercício 2</summary>
+        <p>$\log_2 x + \log_2(x-2)=3$</p>
+        <div class="solution">$\log_2[x(x-2)]=3 \Rightarrow x^2-2x=8 \Rightarrow x^2-2x-8=0$.<br>Raízes: $x=4$ ou $x=-2$. Como o domínio exige $x>2$, a solução é $\mathbf{x=4}$.</div>
+      </details>
+      <details><summary>Exercício 3</summary>
+        <p>$\log x + \log(x-1)=\log 6$</p>
+        <div class="solution">$x^2-x-6=0 \Rightarrow x=3$ (domínio $x>1$).</div>
+      </details>
+      <details><summary>Exercício 4</summary>
+        <p>$2^{x+1}=32$</p>
+        <div class="solution">$32 = 2^5$, logo $x+1=5 \Rightarrow \mathbf{x=4}$.</div>
+      </details>
+      <details><summary>Exercício 5</summary>
+        <p>$\log_3 x=2$</p>
+        <div class="solution">$x=3^2=\mathbf{9}$.</div>
+      </details>
+      <details><summary>Exercício 6</summary>
+        <p>$\log_5 x=3$</p>
+        <div class="solution">$x=5^3=\mathbf{125}$.</div>
+      </details>
+      <details><summary>Exercício 7</summary>
+        <p>$\log_2(x^2)=4$</p>
+        <div class="solution">$x^2 = 2^4 = 16$. Domínio $x>0$, logo $\mathbf{x=4}$.</div>
+      </details>
+      <details><summary>Exercício 8</summary>
+        <p>$5^x = 125$</p>
+        <div class="solution">$125 = 5^3 \Rightarrow \mathbf{x=3}$.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. PA (8) ============ -->
+<section>
+  <h2>4. Progressão Aritmética (PA)</h2>
+  <div class="two-col">
+    <div>
+      <div class="formula-box">$a_n=a_1+(n-1)r$ &nbsp;|&nbsp; $S_n=\dfrac{n(a_1+a_n)}{2}$</div>
+      <div class="control-card">
+        <div class="control-header">
+          <span class="control-name">Primeiro termo a₁</span>
+          <span class="control-value" id="pa-a1-val">3</span>
+        </div>
+        <input type="range" id="pa-a1" min="0" max="20" step="1" value="3">
+      </div>
+      <div class="control-card">
+        <div class="control-header">
+          <span class="control-name">Razão r</span>
+          <span class="control-value" id="pa-r-val">4</span>
+        </div>
+        <input type="range" id="pa-r" min="-5" max="8" step="1" value="4">
+      </div>
+      <div class="chart-wrap"><canvas id="pa-chart"></canvas></div>
+      <div class="info-box" id="pa-info"></div>
+    </div>
+    <div class="exercises">
+      <details><summary>Exercício 1</summary>
+        <p>$a_1=3$, $r=4$. Calcule $a_{10}$.</p>
+        <div class="solution">$a_{10}=3+9\cdot 4=\mathbf{39}$.</div>
+      </details>
+      <details><summary>Exercício 2</summary>
+        <p>Soma dos 20 primeiros de $(5,8,11,\ldots)$.</p>
+        <div class="solution">$a_{20}=62$; $S_{20}=\frac{20\cdot 67}{2}=\mathbf{670}$.</div>
+      </details>
+      <details><summary>Exercício 3</summary>
+        <p>$a_5=17$, $a_{10}=32$. Ache $a_1$ e $r$.</p>
+        <div class="solution">$5r=15 \Rightarrow r=3$; $a_1=17-12=\mathbf{5}$.</div>
+      </details>
+      <details><summary>Exercício 4</summary>
+        <p>Quantos termos em $(2,5,8,\ldots,92)$?</p>
+        <div class="solution">$92=2+(n-1)\cdot 3 \Rightarrow n=\mathbf{31}$.</div>
+      </details>
+      <details><summary>Exercício 5</summary>
+        <p>Soma dos ímpares de 1 a 99.</p>
+        <div class="solution">$n=50$; $S=\frac{50\cdot 100}{2}=\mathbf{2\,500}$.</div>
+      </details>
+      <details><summary>Exercício 6</summary>
+        <p>$a_1=7$, $r=-2$. Calcule $a_{10}$.</p>
+        <div class="solution">$a_{10}=7+9\cdot(-2) = 7-18 = \mathbf{-11}$.</div>
+      </details>
+      <details><summary>Exercício 7</summary>
+        <p>Soma de todos os inteiros de 1 a 100.</p>
+        <div class="solution">$S_{100}=\frac{100\cdot(1+100)}{2}=50\cdot 101 = \mathbf{5\,050}$.</div>
+      </details>
+      <details><summary>Exercício 8</summary>
+        <p>Em uma PA, $a_3=11$ e $a_7=23$. Qual a razão $r$?</p>
+        <div class="solution">$a_7-a_3=4r \Rightarrow 12=4r \Rightarrow \mathbf{r=3}$.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. PG (8) ============ -->
+<section>
+  <h2>5. Progressão Geométrica (PG)</h2>
+  <div class="two-col">
+    <div>
+      <div class="formula-box">$a_n=a_1\cdot q^{\,n-1}$ &nbsp;|&nbsp; $S_n=a_1\dfrac{q^n-1}{q-1}$</div>
+      <div class="control-card">
+        <div class="control-header">
+          <span class="control-name">Primeiro termo a₁</span>
+          <span class="control-value" id="pg-a1-val">2.0</span>
+        </div>
+        <input type="range" id="pg-a1" min="0.5" max="8" step="0.5" value="2">
+      </div>
+      <div class="control-card">
+        <div class="control-header">
+          <span class="control-name">Razão q</span>
+          <span class="control-value" id="pg-q-val">1.5</span>
+        </div>
+        <input type="range" id="pg-q" min="0.3" max="2.5" step="0.1" value="1.5">
+      </div>
+      <div class="chart-wrap"><canvas id="pg-chart"></canvas></div>
+      <div class="info-box" id="pg-info"></div>
+    </div>
+    <div class="exercises">
+      <details><summary>Exercício 1</summary>
+        <p>Soma dos 5 primeiros de $(2,6,18,\ldots)$.</p>
+        <div class="solution">$S_5=2\cdot\frac{243-1}{2}=\mathbf{242}$.</div>
+      </details>
+      <details><summary>Exercício 2</summary>
+        <p>PG infinita com $a_1=8$, $q=1/2$. Soma?</p>
+        <div class="solution">$S=\frac{8}{1/2}=\mathbf{16}$.</div>
+      </details>
+      <details><summary>Exercício 3</summary>
+        <p>$8^\circ$ termo de $(1,2,4,\ldots)$.</p>
+        <div class="solution">$a_8=1\cdot 2^7=\mathbf{128}$.</div>
+      </details>
+      <details><summary>Exercício 4</summary>
+        <p>Carro de R$ 50 000 desvaloriza 15%/ano. Valor após 3 anos?</p>
+        <div class="solution">$V=50000\cdot(0{,}85)^3\approx\mathbf{R\$\ 30\,706{,}25}$.</div>
+      </details>
+      <details><summary>Exercício 5</summary>
+        <p>Soma dos 4 primeiros de $(3,6,12,\ldots)$.</p>
+        <div class="solution">$S_4=3\cdot\frac{16-1}{1}=\mathbf{45}$.</div>
+      </details>
+      <details><summary>Exercício 6</summary>
+        <p>$10^\circ$ termo de $(2,6,18,\ldots)$.</p>
+        <div class="solution">$a_{10}=2\cdot 3^9 = 2\cdot 19683 = \mathbf{39\,366}$.</div>
+      </details>
+      <details><summary>Exercício 7</summary>
+        <p>Soma $1+2+4+8+\ldots+1024$.</p>
+        <div class="solution">PG com $a_1=1$, $q=2$, $n=11$ (1024 = 2¹⁰). $S_{11}=\frac{2^{11}-1}{2-1} = \mathbf{2\,047}$.</div>
+      </details>
+      <details><summary>Exercício 8</summary>
+        <p>$a_1=1$, $q=3$. Calcule $a_6$.</p>
+        <div class="solution">$a_6 = 1\cdot 3^5 = \mathbf{243}$.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DIVISOR ============ -->
+<section>
+  <div class="divider">
+    <h1>Bloco 2</h1>
+    <p style="font-size: 1.15em; color: var(--ink-2);">Semelhança · Pitágoras · Trigonometria · Áreas</p>
+    <div><span class="badge">4 tópicos · 40 exercícios + polígonos regulares</span></div>
+  </div>
+</section>
+
+<!-- ============ 6. SEMELHANÇA (10) ============ -->
+<section>
+  <h2>6. Semelhança de Triângulos</h2>
+  <div class="two-col">
+    <div>
+      <div class="formula-box">$\dfrac{AB}{A'B'}=\dfrac{BC}{B'C'}=\dfrac{AC}{A'C'}=k$</div>
+      <div class="control-card">
+        <div class="control-header">
+          <span class="control-name">Razão de semelhança k</span>
+          <span class="control-value" id="sim-k-val">1.00</span>
+        </div>
+        <input type="range" id="sim-k" min="0.5" max="1.5" step="0.05" value="1">
+      </div>
+      <svg viewBox="0 0 500 260">
+        <polygon id="tri-a" points="40,230 160,230 100,110" fill="rgba(99,102,241,0.25)" stroke="#6366f1" stroke-width="3"/>
+        <polygon id="tri-b" points="250,230 350,230 300,120" fill="rgba(245,158,11,0.3)" stroke="#f59e0b" stroke-width="3"/>
+        <text x="100" y="252" font-size="15" text-anchor="middle" fill="#6366f1" font-weight="800">A</text>
+        <text x="300" y="252" font-size="15" text-anchor="middle" fill="#f59e0b" font-weight="800">B × k</text>
+      </svg>
+      <div class="info-box" id="sim-info"></div>
+      <p class="hint">💡 Área de B = $k^2 \times$ área de A.</p>
+    </div>
+    <div class="exercises">
+      <details><summary>Exercício 1</summary>
+        <p>ABC~DEF, $AB=6$, $BC=8$, $DE=9$. Calcule $EF$.</p>
+        <div class="solution">$k=6/9=2/3$; $8/EF=2/3 \Rightarrow EF=\mathbf{12}$.</div>
+      </details>
+      <details><summary>Exercício 2</summary>
+        <p>Pessoa de 1,80 m projeta 2 m; prédio, 20 m. Altura do prédio?</p>
+        <div class="solution">$h/20=1{,}8/2 \Rightarrow h=\mathbf{18\ m}$.</div>
+      </details>
+      <details><summary>Exercício 3</summary>
+        <p>Triângulo 4,5,6 semelhante a outro de perímetro 45. Razão k?</p>
+        <div class="solution">$k=45/15=\mathbf{3}$.</div>
+      </details>
+      <details><summary>Exercício 4</summary>
+        <p>Planta 1:50 mostra 8 cm. Tamanho real?</p>
+        <div class="solution">$8\cdot 50=400$ cm $=\mathbf{4\ m}$.</div>
+      </details>
+      <details><summary>Exercício 5</summary>
+        <p>Áreas 25 e 100. Razão de semelhança?</p>
+        <div class="solution">$k^2=25/100 \Rightarrow k=\mathbf{1/2}$.</div>
+      </details>
+      <details><summary>Exercício 6</summary>
+        <p>Triângulos semelhantes de lados $(3,4,5)$ e $(6,8,x)$. Qual o $x$?</p>
+        <div class="solution">$k=6/3=2$; $x=5\cdot 2=\mathbf{10}$.</div>
+      </details>
+      <details><summary>Exercício 7</summary>
+        <p>Árvore projeta 12 m de sombra; poste de 2 m projeta 3 m. Altura da árvore?</p>
+        <div class="solution">$\frac{h}{12}=\frac{2}{3} \Rightarrow h = \mathbf{8\ m}$.</div>
+      </details>
+      <details><summary>Exercício 8</summary>
+        <p>Dois retângulos semelhantes, áreas 36 e 81. Razão entre os lados?</p>
+        <div class="solution">$k^2=36/81 \Rightarrow k = 6/9 = \mathbf{2/3}$.</div>
+      </details>
+      <details><summary>Exercício 9</summary>
+        <p>Mapa 1:25 000 mostra 4 cm. Distância real?</p>
+        <div class="solution">$4\cdot 25\,000 = 100\,000$ cm $=\mathbf{1\ km}$.</div>
+      </details>
+      <details><summary>Exercício 10</summary>
+        <p>Perímetros 24 e 60. Razão de áreas?</p>
+        <div class="solution">$k=24/60=2/5$; $A_1/A_2 = k^2 = \mathbf{4/25}$.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. PITÁGORAS (10) ============ -->
+<section>
+  <h2>7. Teorema de Pitágoras</h2>
+  <div class="two-col">
+    <div>
+      <div class="formula-box">$a^2 + b^2 = c^2$</div>
+      <div class="control-card">
+        <div class="control-header">
+          <span class="control-name">Cateto a</span>
+          <span class="control-value" id="pyth-a-val">3.0</span>
+        </div>
+        <input type="range" id="pyth-a" min="2" max="6" step="0.5" value="3">
+      </div>
+      <div class="control-card">
+        <div class="control-header">
+          <span class="control-name">Cateto b</span>
+          <span class="control-value" id="pyth-b-val">4.0</span>
+        </div>
+        <input type="range" id="pyth-b" min="2" max="6" step="0.5" value="4">
+      </div>
+      <svg viewBox="0 0 520 360">
+        <polygon id="pyth-sq-a" points="" fill="rgba(99,102,241,0.2)" stroke="#6366f1" stroke-width="2"/>
+        <polygon id="pyth-sq-b" points="" fill="rgba(16,185,129,0.2)" stroke="#10b981" stroke-width="2"/>
+        <polygon id="pyth-sq-c" points="" fill="rgba(245,158,11,0.25)" stroke="#f59e0b" stroke-width="2"/>
+        <polygon id="pyth-tri" points="" fill="rgba(239,68,68,0.3)" stroke="#dc2626" stroke-width="3"/>
+      </svg>
+      <div class="info-box" id="pyth-info"></div>
+    </div>
+    <div class="exercises">
+      <details><summary>Exercício 1</summary>
+        <p>Catetos 9 e 12. Hipotenusa?</p>
+        <div class="solution">$c^2=81+144=225 \Rightarrow c=\mathbf{15}$.</div>
+      </details>
+      <details><summary>Exercício 2</summary>
+        <p>Hipotenusa 13, cateto 5. Outro cateto?</p>
+        <div class="solution">$b^2=169-25=144 \Rightarrow b=\mathbf{12}$.</div>
+      </details>
+      <details><summary>Exercício 3</summary>
+        <p>Escada de 5 m apoiada a 3 m da parede. Altura?</p>
+        <div class="solution">$h^2=25-9=16 \Rightarrow h=\mathbf{4\ m}$.</div>
+      </details>
+      <details><summary>Exercício 4</summary>
+        <p>Diagonal de quadrado de lado 7.</p>
+        <div class="solution">$d=7\sqrt{2}\approx\mathbf{9{,}9}$.</div>
+      </details>
+      <details><summary>Exercício 5</summary>
+        <p>Triângulo 7, 24, 25 é retângulo?</p>
+        <div class="solution">$49+576=625=25^2$ ✓ <strong>Sim</strong>.</div>
+      </details>
+      <details><summary>Exercício 6</summary>
+        <p>Triângulo isósceles com base 6 e lados iguais 5. Altura em relação à base?</p>
+        <div class="solution">$h^2 + 3^2 = 5^2 \Rightarrow h^2=16 \Rightarrow h = \mathbf{4}$.</div>
+      </details>
+      <details><summary>Exercício 7</summary>
+        <p>Retângulo de lados 5 e 12. Diagonal?</p>
+        <div class="solution">$d^2 = 25+144 = 169 \Rightarrow d = \mathbf{13}$.</div>
+      </details>
+      <details><summary>Exercício 8</summary>
+        <p>Catetos 15 e 20. Hipotenusa?</p>
+        <div class="solution">$c^2 = 225+400 = 625 \Rightarrow c = \mathbf{25}$.</div>
+      </details>
+      <details><summary>Exercício 9</summary>
+        <p>Hipotenusa 10, um cateto 6. Outro cateto?</p>
+        <div class="solution">$b^2 = 100-36 = 64 \Rightarrow b = \mathbf{8}$.</div>
+      </details>
+      <details><summary>Exercício 10</summary>
+        <p>Diagonal de um quadrado mede $8\sqrt{2}$. Qual o lado?</p>
+        <div class="solution">$L\sqrt{2} = 8\sqrt{2} \Rightarrow L = \mathbf{8}$.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. TRIG POLÍGONOS (10) ============ -->
+<section>
+  <h2>8. Trigonometria em Polígonos</h2>
+  <div class="two-col">
+    <div>
+      <div class="formula-box" style="font-size: 0.8em;">
+        $\operatorname{sen}\theta=\dfrac{\text{op}}{\text{hip}}$ · $\cos\theta=\dfrac{\text{adj}}{\text{hip}}$ · $\tan\theta=\dfrac{\text{op}}{\text{adj}}$
+      </div>
+      <div class="control-card">
+        <div class="control-header">
+          <span class="control-name">Número de lados n</span>
+          <span class="control-value" id="poly-n-val">6</span>
+        </div>
+        <input type="range" id="poly-n" min="3" max="12" step="1" value="6">
+      </div>
+      <svg viewBox="0 0 340 340">
+        <circle cx="170" cy="170" r="130" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6,6"/>
+        <polygon id="poly-shape" points="" fill="rgba(99,102,241,0.18)" stroke="#6366f1" stroke-width="3"/>
+        <line id="poly-radius" x1="170" y1="170" x2="170" y2="40" stroke="#dc2626" stroke-width="3"/>
+        <line id="poly-apothem" x1="170" y1="170" x2="220" y2="120" stroke="#0ea5e9" stroke-width="3"/>
+        <circle cx="170" cy="170" r="4" fill="#0f172a"/>
+        <text x="176" y="162" font-size="16" fill="#dc2626" font-weight="800">R</text>
+        <text x="196" y="144" font-size="16" fill="#0ea5e9" font-weight="800">a</text>
+      </svg>
+      <div class="info-box" id="poly-info"></div>
+    </div>
+    <div class="exercises">
+      <details><summary>Exercício 1</summary>
+        <p>Hexágono inscrito, $R=10$. Lado?</p>
+        <div class="solution">$L=R=\mathbf{10}$.</div>
+      </details>
+      <details><summary>Exercício 2</summary>
+        <p>Apótema do quadrado de lado 8.</p>
+        <div class="solution">$a=L/2=\mathbf{4}$.</div>
+      </details>
+      <details><summary>Exercício 3</summary>
+        <p>Triângulo retângulo: op=3, hip=5. Seno?</p>
+        <div class="solution">$\operatorname{sen}\theta=\mathbf{0{,}6}$.</div>
+      </details>
+      <details><summary>Exercício 4</summary>
+        <p>Ângulo 30°, hipotenusa 10. Cateto oposto?</p>
+        <div class="solution">$\operatorname{sen}30°=1/2 \Rightarrow \mathbf{5}$.</div>
+      </details>
+      <details><summary>Exercício 5</summary>
+        <p>Apótema de hexágono regular de lado 10.</p>
+        <div class="solution">$a=\frac{10\sqrt{3}}{2}=\mathbf{5\sqrt{3}\approx 8{,}66}$.</div>
+      </details>
+      <details><summary>Exercício 6</summary>
+        <p>Triângulo equilátero inscrito em círculo de raio $R=10$. Lado?</p>
+        <div class="solution">$L = R\sqrt{3} = \mathbf{10\sqrt{3}\approx 17{,}32}$.</div>
+      </details>
+      <details><summary>Exercício 7</summary>
+        <p>Quadrado inscrito em círculo de raio $R=10$. Lado?</p>
+        <div class="solution">$L = R\sqrt{2} = \mathbf{10\sqrt{2}\approx 14{,}14}$.</div>
+      </details>
+      <details><summary>Exercício 8</summary>
+        <p>Pentágono regular inscrito, $R=10$. Lado?</p>
+        <div class="solution">Ângulo central $= 360°/5 = 72°$; lado:<br>$L = 2R\cdot\operatorname{sen}(36°) = 20\cdot 0{,}5878 \approx \mathbf{11{,}76}$.</div>
+      </details>
+      <details><summary>Exercício 9</summary>
+        <p>Apótema do hexágono regular de lado 8.</p>
+        <div class="solution">$a = \frac{L\sqrt{3}}{2} = \frac{8\sqrt{3}}{2} = \mathbf{4\sqrt{3}\approx 6{,}93}$.</div>
+      </details>
+      <details><summary>Exercício 10</summary>
+        <p>Apótema do pentágono regular de lado 6.</p>
+        <div class="solution">$a = \frac{L}{2\tan(36°)} = \frac{6}{2\cdot 0{,}7265} \approx \mathbf{4{,}13}$.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8b. POLÍGONOS REGULARES (REVISADO) ============ -->
+<section>
+  <h2>8b. Polígonos Regulares — L, a, A em função de R</h2>
+  <p style="font-size: 0.8em; color: var(--ink-2); margin: 0 0 8px 0;">
+    Inscritos em círculo de raio $R$. Cada polígono regular de $n$ lados se divide em $n$ triângulos isósceles; daí vêm as fórmulas:
+  </p>
+  <div class="formula-box" style="font-size: 0.75em;">
+    $\alpha = \dfrac{360°}{n}$ (ângulo central) &nbsp;|&nbsp;
+    $L = 2R\,\operatorname{sen}\!\left(\dfrac{\alpha}{2}\right)$ &nbsp;|&nbsp;
+    $a = R\cos\!\left(\dfrac{\alpha}{2}\right)$ &nbsp;|&nbsp;
+    $A = \dfrac{P\cdot a}{2} = \dfrac{n L a}{2}$
+  </div>
+
+  <div class="poly-grid" style="margin-top: 14px;">
+    <!-- Triângulo -->
+    <div class="poly-card">
+      <h4>▲ Triângulo Equilátero (n=3)</h4>
+      <svg viewBox="0 0 200 190">
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5,4"/>
+        <polygon points="100,30 161,135 39,135" fill="rgba(99,102,241,0.18)" stroke="#6366f1" stroke-width="2.5"/>
+        <line x1="100" y1="100" x2="100" y2="30" stroke="#dc2626" stroke-width="2"/>
+        <line x1="100" y1="100" x2="100" y2="135" stroke="#0ea5e9" stroke-width="2"/>
+        <circle cx="100" cy="100" r="3" fill="#0f172a"/>
+        <text x="104" y="75" font-size="12" fill="#dc2626" font-weight="800">R</text>
+        <text x="104" y="122" font-size="12" fill="#0ea5e9" font-weight="800">a</text>
+      </svg>
+      <div class="poly-formulas">
+        <strong>L</strong> $= R\sqrt{3} \approx 1{,}732\,R$<br>
+        <strong>a</strong> $= \dfrac{R}{2} = 0{,}5\,R$<br>
+        <strong>A</strong> $= \dfrac{3\sqrt{3}}{4}R^2 \approx 1{,}299\,R^2$
+      </div>
+    </div>
+
+    <!-- Quadrado -->
+    <div class="poly-card">
+      <h4>■ Quadrado (n=4)</h4>
+      <svg viewBox="0 0 200 190">
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5,4"/>
+        <polygon points="50,50 150,50 150,150 50,150" fill="rgba(99,102,241,0.18)" stroke="#6366f1" stroke-width="2.5"/>
+        <line x1="100" y1="100" x2="150" y2="50" stroke="#dc2626" stroke-width="2"/>
+        <line x1="100" y1="100" x2="150" y2="100" stroke="#0ea5e9" stroke-width="2"/>
+        <circle cx="100" cy="100" r="3" fill="#0f172a"/>
+        <text x="120" y="76" font-size="12" fill="#dc2626" font-weight="800">R</text>
+        <text x="120" y="95" font-size="12" fill="#0ea5e9" font-weight="800">a</text>
+      </svg>
+      <div class="poly-formulas">
+        <strong>L</strong> $= R\sqrt{2} \approx 1{,}414\,R$<br>
+        <strong>a</strong> $= \dfrac{R\sqrt{2}}{2} = \dfrac{R}{\sqrt{2}} \approx 0{,}707\,R$<br>
+        <strong>A</strong> $= 2R^2$
+      </div>
+    </div>
+
+    <!-- Pentágono -->
+    <div class="poly-card">
+      <h4>⬟ Pentágono (n=5)</h4>
+      <svg viewBox="0 0 200 190">
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5,4"/>
+        <polygon points="100,30 166,78 141,156 59,156 34,78" fill="rgba(99,102,241,0.18)" stroke="#6366f1" stroke-width="2.5"/>
+        <line x1="100" y1="100" x2="100" y2="30" stroke="#dc2626" stroke-width="2"/>
+        <line x1="100" y1="100" x2="100" y2="156" stroke="#0ea5e9" stroke-width="2"/>
+        <circle cx="100" cy="100" r="3" fill="#0f172a"/>
+        <text x="104" y="70" font-size="12" fill="#dc2626" font-weight="800">R</text>
+        <text x="104" y="140" font-size="12" fill="#0ea5e9" font-weight="800">a</text>
+      </svg>
+      <div class="poly-formulas">
+        $\alpha = 72°$, &nbsp;$\alpha/2 = 36°$<br>
+        <strong>L</strong> $= 2R\operatorname{sen}(36°) \approx 1{,}176\,R$<br>
+        <strong>a</strong> $= R\cos(36°) \approx 0{,}809\,R$<br>
+        <strong>A</strong> $= \dfrac{5}{2}R^2\operatorname{sen}(72°) \approx 2{,}378\,R^2$
+      </div>
+    </div>
+
+    <!-- Hexágono -->
+    <div class="poly-card">
+      <h4>⬢ Hexágono (n=6)</h4>
+      <svg viewBox="0 0 200 190">
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5,4"/>
+        <polygon points="100,30 160,65 160,135 100,170 40,135 40,65" fill="rgba(99,102,241,0.18)" stroke="#6366f1" stroke-width="2.5"/>
+        <line x1="100" y1="100" x2="160" y2="65" stroke="#dc2626" stroke-width="2"/>
+        <line x1="100" y1="100" x2="160" y2="100" stroke="#0ea5e9" stroke-width="2"/>
+        <circle cx="100" cy="100" r="3" fill="#0f172a"/>
+        <text x="130" y="80" font-size="12" fill="#dc2626" font-weight="800">R</text>
+        <text x="130" y="95" font-size="12" fill="#0ea5e9" font-weight="800">a</text>
+      </svg>
+      <div class="poly-formulas">
+        $\alpha = 60°$, &nbsp;$\alpha/2 = 30°$<br>
+        <strong>L</strong> $= R$ (caso especial!)<br>
+        <strong>a</strong> $= \dfrac{R\sqrt{3}}{2} \approx 0{,}866\,R$<br>
+        <strong>A</strong> $= \dfrac{3\sqrt{3}}{2}R^2 \approx 2{,}598\,R^2$
+      </div>
+    </div>
+  </div>
+
+  <p class="hint" style="text-align: center; margin-top: 14px;">
+    💡 À medida que o número de lados $n$ aumenta, o polígono se aproxima de um círculo. A área $A$ se aproxima de $\pi R^2$, que é a área do círculo!
+  </p>
+</section>
+
+<!-- ============ 9. ÁREAS (10) ============ -->
+<section>
+  <h2>9. Área de Polígonos e Círculo</h2>
+  <div class="two-col">
+    <div>
+      <div class="formula-box">Círculo: $A=\pi r^2$ &nbsp;|&nbsp; Setor: $A=\dfrac{\theta}{360°}\pi r^2$</div>
+      <div class="control-card">
+        <div class="control-header">
+          <span class="control-name">Número de setores n</span>
+          <span class="control-value" id="circ-n-val">6</span>
+        </div>
+        <input type="range" id="circ-n" min="3" max="24" step="1" value="6">
+      </div>
+      <svg viewBox="0 0 360 360" style="max-height:360px;">
+        <g id="sectors-group"></g>
+        <circle cx="180" cy="180" r="130" fill="none" stroke="#0f172a" stroke-width="3"/>
+        <circle cx="180" cy="180" r="4" fill="#0f172a"/>
+      </svg>
+      <div class="info-box" id="circ-info"></div>
+      <p class="hint">💡 Aumente n → a área do polígono se aproxima de $\pi r^2$.</p>
+    </div>
+    <div class="exercises">
+      <details><summary>Exercício 1</summary>
+        <p>Área de hexágono regular de lado 10.</p>
+        <div class="solution">$A=\frac{60\cdot 5\sqrt{3}}{2}=\mathbf{150\sqrt{3}\approx 259{,}8}$.</div>
+      </details>
+      <details><summary>Exercício 2</summary>
+        <p>Setor de 60° em círculo de raio 6.</p>
+        <div class="solution">$A=\mathbf{6\pi\approx 18{,}85}$.</div>
+      </details>
+      <details><summary>Exercício 3</summary>
+        <p>Coroa circular: raio externo 10, interno 6.</p>
+        <div class="solution">$A=\pi(100-36)=\mathbf{64\pi\approx 201{,}06}$.</div>
+      </details>
+      <details><summary>Exercício 4</summary>
+        <p>Quadrado com diagonal 10. Área?</p>
+        <div class="solution">$A=\mathbf{50}$.</div>
+      </details>
+      <details><summary>Exercício 5</summary>
+        <p>Área de círculo de raio 7.</p>
+        <div class="solution">$A=49\pi\approx\mathbf{153{,}94}$.</div>
+      </details>
+      <details><summary>Exercício 6</summary>
+        <p>Área de triângulo equilátero de lado 6.</p>
+        <div class="solution">$A=\dfrac{\sqrt{3}}{4}\cdot 36 = \mathbf{9\sqrt{3}\approx 15{,}59}$.</div>
+      </details>
+      <details><summary>Exercício 7</summary>
+        <p>Trapézio com bases 8 e 12, altura 5.</p>
+        <div class="solution">$A=\dfrac{(8+12)}{2}\cdot 5 = 10\cdot 5 = \mathbf{50}$.</div>
+      </details>
+      <details><summary>Exercício 8</summary>
+        <p>Paralelogramo com base 7 e altura 4.</p>
+        <div class="solution">$A = 7\cdot 4 = \mathbf{28}$.</div>
+      </details>
+      <details><summary>Exercício 9</summary>
+        <p>Setor de 120° em círculo de raio 9.</p>
+        <div class="solution">$A=\dfrac{120}{360}\cdot 81\pi = \mathbf{27\pi\approx 84{,}82}$.</div>
+      </details>
+      <details><summary>Exercício 10</summary>
+        <p>Área de um semicírculo de raio 4.</p>
+        <div class="solution">$A=\dfrac{1}{2}\cdot 16\pi = \mathbf{8\pi\approx 25{,}13}$.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FIM ============ -->
+<section>
+  <div class="divider">
+    <h1>Fim da Aula</h1>
+    <p style="font-size: 1.1em; color: var(--ink-2); max-width: 800px; margin: 20px auto;">
+      <strong>Bloco 1:</strong> Exponencial ↔ Logaritmo · PA · PG<br>
+      <strong>Bloco 2:</strong> Semelhança · Pitágoras · Polígonos · Áreas
+    </p>
+    <div class="info-box" style="text-align: left; max-width: 600px;">
+      💡 Reveja cada slider no seu tempo.<br>
+      ✏️ Suas anotações em LaTeX ficam salvas automaticamente.<br>
+      📄 Exporte em PDF quando terminar.
+    </div>
+  </div>
+</section>
+
+</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.js"></script>
+<script>
+function safeGet(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
+function safeSet(k,v){ try { localStorage.setItem(k,v); } catch(e){} }
+function safeRemove(k){ try { localStorage.removeItem(k); } catch(e){} }
+function debounce(fn, delay) {
+  let t; return function(...args){ clearTimeout(t); t = setTimeout(() => fn.apply(this, args), delay); };
+}
+function renderMath(el) {
+  if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([el]).catch(()=>{});
+}
+function showToast(html, duration) {
+  const t = document.getElementById('toast');
+  t.innerHTML = html; t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), duration || 4000);
+}
+
+const isMobile = window.matchMedia('(max-width: 768px)').matches;
+if (isMobile) {
+  document.querySelector('.reveal').classList.add('mobile');
+  Reveal.initialize({
+    view: 'scroll', scrollLayout: 'compact', scrollProgress: true,
+    scrollSnap: false, hash: false, controls: false, progress: true, keyboard: false, touch: true
+  });
+} else {
+  Reveal.initialize({
+    hash: true, slideNumber: 'c/t', transition: 'slide',
+    width: 1400, height: 900, margin: 0.03, controls: true, progress: true, keyboard: true
+  });
+}
+
+function updateSliderFill(slider) {
+  const min = parseFloat(slider.min), max = parseFloat(slider.max), val = parseFloat(slider.value);
+  const pct = ((val - min) / (max - min)) * 100;
+  slider.style.setProperty('--pct', pct + '%');
+}
+
+const charts = {};
+function makeChart(id, cfg) {
+  const c = document.getElementById(id); if (!c) return;
+  if (charts[id]) charts[id].destroy();
+  charts[id] = new Chart(c, cfg);
+}
+const chartOpts = (yLabel, xLabel) => ({
+  responsive: true, maintainAspectRatio: false, animation: { duration: 250 },
+  interaction: { intersect: false, mode: 'index' },
+  plugins: {
+    legend: { labels: { font: { size: 13, family: 'Inter', weight: '600' }, padding: 12 } },
+    tooltip: {
+      backgroundColor: 'rgba(15,23,42,0.95)', padding: 12, cornerRadius: 8,
+      titleFont: { size: 14, family: 'Inter' }, bodyFont: { size: 13, family: 'Inter' }, displayColors: false
+    }
+  },
+  scales: {
+    x: {
+      title: { display: true, text: xLabel, font: { size: 13, family: 'Inter', weight: '700' }, color: '#64748b' },
+      ticks: { font: { size: 11, family: 'Inter' }, color: '#94a3b8', maxTicksLimit: 10 },
+      grid: { color: 'rgba(226,232,240,0.5)' }
+    },
+    y: {
+      title: { display: true, text: yLabel, font: { size: 13, family: 'Inter', weight: '700' }, color: '#64748b' },
+      ticks: { font: { size: 11, family: 'Inter' }, color: '#94a3b8', maxTicksLimit: 8 },
+      grid: { color: 'rgba(226,232,240,0.5)' }
+    }
+  }
+});
+
+function initExp() {
+  const a = +document.getElementById('exp-a').value, b = +document.getElementById('exp-b').value;
+  document.getElementById('exp-a-val').textContent = a.toFixed(1);
+  document.getElementById('exp-b-val').textContent = b.toFixed(1);
+  const xs = [], ys = [];
+  for (let x = -3; x <= 3.001; x += 0.1) { xs.push(x.toFixed(1)); ys.push(a * Math.pow(b, x)); }
+  if (charts['exp-chart']) {
+    charts['exp-chart'].data.labels = xs;
+    charts['exp-chart'].data.datasets[0].data = ys;
+    charts['exp-chart'].data.datasets[0].label = `f(x) = ${a.toFixed(1)}·${b.toFixed(1)}^x`;
+    charts['exp-chart'].update('none'); return;
+  }
+  makeChart('exp-chart', {
+    type: 'line',
+    data: { labels: xs, datasets: [{
+      label: `f(x) = ${a.toFixed(1)}·${b.toFixed(1)}^x`, data: ys,
+      borderColor: '#6366f1', backgroundColor: 'rgba(99,102,241,0.12)',
+      fill: true, pointRadius: 0, tension: 0.15, borderWidth: 3
+    }]},
+    options: chartOpts('f(x)', 'x')
+  });
+}
+function initLog() {
+  const b = +document.getElementById('log-b').value;
+  document.getElementById('log-b-val').textContent = b.toFixed(1);
+  const xs = [], ys = [];
+  for (let x = 0.1; x <= 8.001; x += 0.1) { xs.push(x.toFixed(1)); ys.push(Math.log(x)/Math.log(b)); }
+  if (charts['log-chart']) {
+    charts['log-chart'].data.labels = xs;
+    charts['log-chart'].data.datasets[0].data = ys;
+    charts['log-chart'].data.datasets[0].label = `log_${b.toFixed(1)}(x)`;
+    charts['log-chart'].update('none'); return;
+  }
+  makeChart('log-chart', {
+    type: 'line',
+    data: { labels: xs, datasets: [{
+      label: `log_${b.toFixed(1)}(x)`, data: ys,
+      borderColor: '#ec4899', backgroundColor: 'rgba(236,72,153,0.12)',
+      fill: true, pointRadius: 0, tension: 0.15, borderWidth: 3
+    }]},
+    options: chartOpts('log_b(x)', 'x')
+  });
+}
+function initLeq() {
+  const b = +document.getElementById('leq-b').value, c = +document.getElementById('leq-c').value;
+  document.getElementById('leq-b-val').textContent = b.toFixed(1);
+  document.getElementById('leq-c-val').textContent = c.toFixed(1);
+  const xs = [], ys = [];
+  for (let x = 0.1; x <= 10.001; x += 0.1) { xs.push(x.toFixed(1)); ys.push(Math.log(x)/Math.log(b)); }
+  const cLine = xs.map(() => c);
+  const sol = Math.pow(b, c);
+  document.getElementById('leq-info').innerHTML =
+    `Solução: $\\log_{${b.toFixed(1)}} x = ${c.toFixed(1)} \\Rightarrow x = ${b.toFixed(1)}^{${c.toFixed(1)}} = ${sol.toFixed(3)}$`;
+  renderMath(document.getElementById('leq-info'));
+  const dot = xs.map(x => Math.abs(parseFloat(x)-sol) < 0.1 ? c : null);
+  if (charts['leq-chart']) {
+    charts['leq-chart'].data.labels = xs;
+    charts['leq-chart'].data.datasets[0].data = ys;
+    charts['leq-chart'].data.datasets[1].data = cLine;
+    charts['leq-chart'].data.datasets[1].label = `y = ${c.toFixed(1)}`;
+    charts['leq-chart'].data.datasets[2].data = dot;
+    charts['leq-chart'].update('none'); return;
+  }
+  makeChart('leq-chart', {
+    type: 'line',
+    data: { labels: xs, datasets: [
+      { label: `log_${b.toFixed(1)}(x)`, data: ys, borderColor: '#ec4899', pointRadius: 0, tension: 0.15, borderWidth: 3 },
+      { label: `y = ${c.toFixed(1)}`, data: cLine, borderColor: '#f59e0b', borderDash: [8,5], pointRadius: 0, borderWidth: 2.5 },
+      { label: 'solução', data: dot, borderColor: '#10b981', backgroundColor: '#10b981', pointRadius: 10, pointHoverRadius: 12, showLine: false }
+    ]},
+    options: chartOpts('y', 'x')
+  });
+}
+function initPA() {
+  const a1 = +document.getElementById('pa-a1').value, r = +document.getElementById('pa-r').value;
+  document.getElementById('pa-a1-val').textContent = a1;
+  document.getElementById('pa-r-val').textContent = r;
+  const labels = [], data = [];
+  for (let n = 1; n <= 12; n++) { labels.push(n); data.push(a1 + (n-1)*r); }
+  const a10 = a1 + 9*r, S10 = 10*(a1+a10)/2;
+  document.getElementById('pa-info').innerHTML =
+    `$a_{10} = ${a1} + 9\\cdot ${r} = ${a10}$ &nbsp;|&nbsp; $S_{10} = \\frac{10(${a1}+${a10})}{2} = ${S10}$`;
+  renderMath(document.getElementById('pa-info'));
+  if (charts['pa-chart']) {
+    charts['pa-chart'].data.labels = labels;
+    charts['pa-chart'].data.datasets[0].data = data;
+    charts['pa-chart'].data.datasets[0].label = `a₁=${a1}, r=${r}`;
+    charts['pa-chart'].update('none'); return;
+  }
+  makeChart('pa-chart', {
+    type: 'line',
+    data: { labels, datasets: [{
+      label: `a₁=${a1}, r=${r}`, data,
+      borderColor: '#6366f1', backgroundColor: '#6366f1',
+      pointRadius: 7, pointHoverRadius: 10, borderWidth: 3, tension: 0
+    }]},
+    options: chartOpts('aₙ', 'n')
+  });
+}
+function initPG() {
+  const a1 = +document.getElementById('pg-a1').value, q = +document.getElementById('pg-q').value;
+  document.getElementById('pg-a1-val').textContent = a1.toFixed(1);
+  document.getElementById('pg-q-val').textContent = q.toFixed(1);
+  const labels = [], data = [];
+  for (let n = 1; n <= 10; n++) { labels.push(n); data.push(a1 * Math.pow(q, n-1)); }
+  const a8 = a1 * Math.pow(q, 7);
+  document.getElementById('pg-info').innerHTML = `$a_8 = ${a1.toFixed(1)}\\cdot ${q.toFixed(1)}^{7} = ${a8.toFixed(2)}$`;
+  renderMath(document.getElementById('pg-info'));
+  if (charts['pg-chart']) {
+    charts['pg-chart'].data.labels = labels;
+    charts['pg-chart'].data.datasets[0].data = data;
+    charts['pg-chart'].data.datasets[0].label = `a₁=${a1.toFixed(1)}, q=${q.toFixed(1)}`;
+    charts['pg-chart'].update('none'); return;
+  }
+  makeChart('pg-chart', {
+    type: 'line',
+    data: { labels, datasets: [{
+      label: `a₁=${a1.toFixed(1)}, q=${q.toFixed(1)}`, data,
+      borderColor: '#ec4899', backgroundColor: 'rgba(236,72,153,0.18)',
+      fill: true, pointRadius: 7, pointHoverRadius: 10, borderWidth: 3, tension: 0.15
+    }]},
+    options: chartOpts('aₙ', 'n')
+  });
+}
+function updateSim() {
+  const k = +document.getElementById('sim-k').value;
+  document.getElementById('sim-k-val').textContent = k.toFixed(2);
+  const pts = [[250,230], [250+100*k, 230], [250+50*k, 230-110*k]];
+  document.getElementById('tri-b').setAttribute('points', pts.map(p => p.join(',')).join(' '));
+  document.getElementById('sim-info').innerHTML =
+    `k = ${k.toFixed(2)} &nbsp;|&nbsp; base de B = ${(100*k).toFixed(0)} px<br>` +
+    `área_B / área_A = k² = <strong>${(k*k).toFixed(3)}</strong>`;
+}
+function updatePyth() {
+  const a = +document.getElementById('pyth-a').value, b = +document.getElementById('pyth-b').value;
+  const c = Math.sqrt(a*a + b*b);
+  document.getElementById('pyth-a-val').textContent = a.toFixed(1);
+  document.getElementById('pyth-b-val').textContent = b.toFixed(1);
+  const s = 16, ox = 220, oy = 240;
+  const A = [ox,oy], B = [ox+a*s, oy], C = [ox, oy-b*s];
+  document.getElementById('pyth-tri').setAttribute('points', [A,B,C].map(p => p.join(',')).join(' '));
+  const sqA = [A, B, [B[0],B[1]+a*s], [A[0],A[1]+a*s]];
+  document.getElementById('pyth-sq-a').setAttribute('points', sqA.map(p => p.join(',')).join(' '));
+  const sqB = [A, C, [C[0]-b*s, C[1]], [A[0]-b*s, A[1]]];
+  document.getElementById('pyth-sq-b').setAttribute('points', sqB.map(p => p.join(',')).join(' '));
+  const vx = C[0]-B[0], vy = C[1]-B[1];
+  const perpx = -vy, perpy = vx;
+  const Bp = [B[0]+perpx, B[1]+perpy], Cp = [C[0]+perpx, C[1]+perpy];
+  document.getElementById('pyth-sq-c').setAttribute('points', [B,C,Cp,Bp].map(p => p.join(',')).join(' '));
+  document.getElementById('pyth-info').innerHTML =
+    `$a = ${a.toFixed(1)}$, $b = ${b.toFixed(1)}$, $c = ${c.toFixed(3)}$<br>` +
+    `$a^2 + b^2 = ${(a*a).toFixed(2)} + ${(b*b).toFixed(2)} = ${(a*a+b*b).toFixed(2)} = c^2$ ✓`;
+  renderMath(document.getElementById('pyth-info'));
+}
+function updatePoly() {
+  const n = +document.getElementById('poly-n').value;
+  document.getElementById('poly-n-val').textContent = n;
+  const cx=170, cy=170, R=130;
+  const pts = [];
+  for (let i=0;i<n;i++) { const a = -Math.PI/2 + 2*Math.PI*i/n; pts.push([cx+R*Math.cos(a), cy+R*Math.sin(a)]); }
+  document.getElementById('poly-shape').setAttribute('points', pts.map(p => p.join(',')).join(' '));
+  document.getElementById('poly-radius').setAttribute('x2', pts[0][0]);
+  document.getElementById('poly-radius').setAttribute('y2', pts[0][1]);
+  const midx = (pts[0][0]+pts[1][0])/2, midy = (pts[0][1]+pts[1][1])/2;
+  document.getElementById('poly-apothem').setAttribute('x2', midx);
+  document.getElementById('poly-apothem').setAttribute('y2', midy);
+  const L = 2*Math.sin(Math.PI/n), ap = Math.cos(Math.PI/n);
+  const area = n*L*ap/2;
+  document.getElementById('poly-info').innerHTML =
+    `Lado (R=1): <strong>${L.toFixed(3)}</strong> &nbsp;|&nbsp; apótema: <strong>${ap.toFixed(3)}</strong><br>` +
+    `Área (R=1): <strong>${area.toFixed(3)}</strong> &nbsp;|&nbsp; π ≈ ${Math.PI.toFixed(3)}`;
+}
+function updateSectors() {
+  const n = +document.getElementById('circ-n').value;
+  document.getElementById('circ-n-val').textContent = n;
+  const cx=180, cy=180, R=130, step = 2*Math.PI/n;
+  let svg = '';
+  for (let i=0;i<n;i++) {
+    const a1 = -Math.PI/2 + i*step, a2 = a1 + step;
+    const x1 = cx + R*Math.cos(a1), y1 = cy + R*Math.sin(a1);
+    const x2 = cx + R*Math.cos(a2), y2 = cy + R*Math.sin(a2);
+    const largeArc = step > Math.PI ? 1 : 0;
+    const fill = (i%2===0) ? 'rgba(99,102,241,0.42)' : 'rgba(236,72,153,0.45)';
+    const stroke = (i%2===0) ? '#6366f1' : '#ec4899';
+    svg += `<path d="M ${cx} ${cy} L ${x1.toFixed(2)} ${y1.toFixed(2)} A ${R} ${R} 0 ${largeArc} 1 ${x2.toFixed(2)} ${y2.toFixed(2)} Z"
+      fill="${fill}" stroke="${stroke}" stroke-width="2"/>`;
+  }
+  const polyPts = [];
+  for (let i=0;i<n;i++) { const a = -Math.PI/2 + i*step;
+    polyPts.push(`${(cx+R*Math.cos(a)).toFixed(2)},${(cy+R*Math.sin(a)).toFixed(2)}`); }
+  svg += `<polygon points="${polyPts.join(' ')}" fill="none" stroke="#f59e0b" stroke-width="3" stroke-dasharray="7,5"/>`;
+  document.getElementById('sectors-group').innerHTML = svg;
+  const areaPoly = n*Math.sin(2*Math.PI/n)/2, areaCircle = Math.PI;
+  document.getElementById('circ-info').innerHTML =
+    `<strong>${n} setores</strong> de ${(360/n).toFixed(1)}° cada<br>` +
+    `Área do polígono inscrito (R=1): <strong>${areaPoly.toFixed(4)}</strong><br>` +
+    `Área do círculo (R=1): π ≈ <strong>${areaCircle.toFixed(4)}</strong><br>` +
+    `Diferença (área não coberta): <strong>${(areaCircle-areaPoly).toFixed(4)}</strong>`;
+}
+
+function bindSlider(id, fn) {
+  const el = document.getElementById(id); if (!el) return;
+  updateSliderFill(el);
+  el.addEventListener('input', () => { updateSliderFill(el); fn(); });
+}
+function initAll() {
+  if (document.getElementById('exp-chart'))  { initExp(); bindSlider('exp-a', initExp); bindSlider('exp-b', initExp); }
+  if (document.getElementById('log-chart'))  { initLog(); bindSlider('log-b', initLog); }
+  if (document.getElementById('leq-chart'))  { initLeq(); bindSlider('leq-b', initLeq); bindSlider('leq-c', initLeq); }
+  if (document.getElementById('pa-chart'))   { initPA();  bindSlider('pa-a1', initPA); bindSlider('pa-r', initPA); }
+  if (document.getElementById('pg-chart'))   { initPG();  bindSlider('pg-a1', initPG); bindSlider('pg-q', initPG); }
+  if (document.getElementById('tri-b'))      { updateSim(); bindSlider('sim-k', updateSim); }
+  if (document.getElementById('pyth-tri'))   { updatePyth(); bindSlider('pyth-a', updatePyth); bindSlider('pyth-b', updatePyth); }
+  if (document.getElementById('poly-shape')) { updatePoly(); bindSlider('poly-n', updatePoly); }
+  if (document.getElementById('sectors-group')) { updateSectors(); bindSlider('circ-n', updateSectors); }
+}
+function resizeVisibleCharts() {
+  Object.values(charts).forEach(c => {
+    if (c && c.canvas && c.canvas.offsetParent !== null) { try { c.resize(); } catch(e){} }
+  });
+}
+
+function enhanceAllExercises() {
+  let counter = 0;
+  document.querySelectorAll('.exercises details').forEach(details => {
+    counter++;
+    const exId = 'ex' + counter;
+    const solDiv = details.querySelector('.solution');
+    if (!solDiv || details.dataset.enhanced) return;
+    details.dataset.enhanced = 'true';
+    const solHTML = solDiv.innerHTML;
+    solDiv.remove();
+    const extras = document.createElement('div');
+    extras.className = 'exercise-extras';
+    extras.innerHTML = `
+      <button type="button" class="reveal-btn">👁️ Revelar resolução</button>
+      <div class="official-solution" style="display:none">
+        <div class="solution">${solHTML}</div>
+      </div>
+      <div class="my-work">
+        <label>✏️ Minha resolução / observações em LaTeX
+          <span class="save-status">💾 salvo</span></label>
+        <textarea class="latex-input" id="${exId}-ta"
+          placeholder="Ex: $x = \\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}$"></textarea>
+        <div class="latex-preview" id="${exId}-prev" data-raw="">
+          <span class="placeholder">A pré-visualização aparece aqui...</span>
+        </div>
+      </div>`;
+    details.appendChild(extras);
+    const revealBtn = extras.querySelector('.reveal-btn');
+    const solBox = extras.querySelector('.official-solution');
+    const ta = extras.querySelector('.latex-input');
+    const prev = extras.querySelector('.latex-preview');
+    const saveStatus = extras.querySelector('.save-status');
+    const saved = safeGet(exId + '-user');
+    if (saved && saved.trim()) { ta.value = saved; prev.dataset.raw = saved; prev.innerHTML = saved; }
+    revealBtn.addEventListener('click', () => {
+      const show = solBox.style.display === 'none';
+      solBox.style.display = show ? 'block' : 'none';
+      revealBtn.textContent = show ? '🙈 Ocultar resolução' : '👁️ Revelar resolução';
+      if (show) renderMath(solBox);
+    });
+    const updatePreview = debounce(() => {
+      const text = ta.value;
+      if (!text.trim()) {
+        prev.dataset.raw = '';
+        prev.innerHTML = '<span class="placeholder">A pré-visualização aparece aqui...</span>';
+        safeRemove(exId + '-user'); return;
+      }
+      prev.dataset.raw = text; prev.innerHTML = text; renderMath(prev);
+      safeSet(exId + '-user', text);
+      saveStatus.classList.add('show');
+      setTimeout(() => saveStatus.classList.remove('show'), 1800);
+    }, 500);
+    ta.addEventListener('input', updatePreview);
+    details.addEventListener('toggle', () => {
+      if (!details.open) return;
+      if (prev.dataset.raw) { prev.innerHTML = prev.dataset.raw; renderMath(prev); }
+      if (solBox.style.display !== 'none') renderMath(solBox);
+    });
+  });
+}
+
+function revealAll() {
+  document.querySelectorAll('.reveal-btn').forEach(btn => {
+    const box = btn.nextElementSibling;
+    if (box && box.style.display === 'none') {
+      box.style.display = 'block';
+      btn.textContent = '🙈 Ocultar resolução';
+      renderMath(box);
+    }
+  });
+  showToast('👁️ Resoluções reveladas');
+}
+function hideAll() {
+  document.querySelectorAll('.reveal-btn').forEach(btn => {
+    const box = btn.nextElementSibling;
+    if (box) { box.style.display = 'none'; btn.textContent = '👁️ Revelar resolução'; }
+  });
+  showToast('🙈 Resoluções ocultadas');
+}
+function clearAllNotes() {
+  if (!confirm('Apagar TODAS as suas anotações?')) return;
+  document.querySelectorAll('.latex-input').forEach(ta => { ta.value = ''; safeRemove(ta.id.replace('-ta', '-user')); });
+  document.querySelectorAll('.latex-preview').forEach(p => {
+    p.dataset.raw = '';
+    p.innerHTML = '<span class="placeholder">A pré-visualização aparece aqui...</span>';
+  });
+  showToast('🗑️ Anotações apagadas');
+}
+function downloadPDF(mode) {
+  const base = window.location.href.split('?')[0].split('#')[0];
+  const params = new URLSearchParams({ 'print-pdf': '1' });
+  if (mode === 'blank') params.set('blank', '1'); else params.set('notes', '1');
+  window.open(base + '?' + params.toString() + '#/', '_blank');
+  showToast(mode === 'blank'
+    ? '📄 Versão em branco aberta.<br>Use <strong>Ctrl+P</strong> → Salvar como PDF.'
+    : '📄 Versão com notas aberta.<br>Use <strong>Ctrl+P</strong> → Salvar como PDF.', 6000);
+}
+function setupPrintMode() {
+  const params = new URLSearchParams(window.location.search);
+  if (!params.has('print-pdf')) return;
+  document.getElementById('toolbar')?.remove();
+  document.getElementById('toast')?.remove();
+  document.querySelectorAll('details').forEach(d => d.setAttribute('open', ''));
+  if (params.has('blank')) document.body.classList.add('blank-version');
+  else if (params.has('notes')) {
+    document.body.classList.add('with-notes');
+    setTimeout(() => {
+      document.querySelectorAll('.latex-preview').forEach(p => {
+        if (p.dataset.raw) { p.innerHTML = p.dataset.raw; renderMath(p); }
+      });
+    }, 600);
+  }
+}
+
+let exercisesEnhanced = false;
+function enhanceOnce() { if (exercisesEnhanced) return; exercisesEnhanced = true; enhanceAllExercises(); }
+function boot() {
+  initAll();
+  enhanceOnce();
+  setupPrintMode();
+  if (!window.location.search.includes('print-pdf')) {
+    setTimeout(() => showToast('💡 Arraste os <strong>sliders</strong>. Escreva sua resolução em <strong>LaTeX</strong>.', 5000), 1200);
+  }
+}
+if (isMobile) {
+  window.addEventListener('load', () => { setTimeout(boot, 500); setTimeout(resizeVisibleCharts, 1500); });
+} else {
+  Reveal.on('ready', () => setTimeout(boot, 400));
+  Reveal.on('slidechanged', () => { enhanceOnce(); setTimeout(resizeVisibleCharts, 200); });
+}
+</script>
+</body>
+</html>
